@@ -39,6 +39,7 @@ Esta aplicacion permite la gestion de puntos de interes turistico y de turistas 
 10. Importar todos los turistas desde un archivo CSV
 11. Exportar todos los turistas a un archivo CSV
 
+
 ###**PROBLEMAS CONOCIDOS CON LAS FUNCIONALIDADES**
 
 
@@ -48,8 +49,9 @@ Esta aplicacion permite la gestion de puntos de interes turistico y de turistas 
 ###**FUNCIONES A MEJORAR**
 
 
-*Automatizar el proceso de identificacion de los archivos en las funciones Importar y Exportar
-*Verificar correctamente el tamaño de los strings ingresados en las funciones de registro para que no superen los 100 caracteres
+* Automatizar el proceso de identificacion de los archivos en las funciones Importar y Exportar
+* Verificar correctamente el tamaño de los strings ingresados en las funciones de registro para que no superen los 100 caracteres
+
 
 ##**CONTRIBUCIONES**
 

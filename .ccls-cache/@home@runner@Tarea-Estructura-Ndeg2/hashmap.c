@@ -34,16 +34,19 @@ int is_equal(void* key1, void* key2){
 
 
 void insertMap(HashMap * map, char * key, void * value) {
-  long valorHash = hash(key,map->capacity);
-
-  while(map->buckets[valorHash]!=NULL && strcmp(map->buckets[valorHash]->key,key)!=0){
-    valorHash=(valorHash+1)%map->capacity;
+  long valorHash = hash(key, map->capacity);
+  while(map->buckets[valorHash] != NULL && map->buckets[valorHash]->key != NULL && strcmp(map->buckets[valorHash]->key, key) != 0) {
+    valorHash = (valorHash + 1) % map->capacity;
   }
-  Pair* nuevoPar=createPair(key,value);
-  map->buckets[valorHash]=nuevoPar;
+  Pair* nuevoPar = createPair(key, value);
+  if (map->buckets[valorHash] != NULL) {
+    free(map->buckets[valorHash]); // Libera el espacio ocupado por el par anterior
+  }
+  map->buckets[valorHash] = nuevoPar;
   map->size++;
-  map->current=valorHash;
+  map->current = valorHash;
 }
+
 
 void enlarge(HashMap * map) {
     enlarge_called = 1; 
@@ -78,11 +81,14 @@ HashMap * createMap(long capacity) {
 
 void eraseMap(HashMap * map,  char * key) {    
   Pair* par = searchMap(map,key);
-  if(par!=NULL){
-    par->key=NULL;
+  if(par != NULL) {
+    free(par->key); // Libera la memoria de la clave
+    par->key = NULL;
+    par->value = NULL; // Establece el valor en NULL
     map->size--;
   }
 }
+
 
 Pair * searchMap(HashMap * map,  char * key) {   
   long valorHash = hash(key,map->capacity);

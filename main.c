@@ -121,7 +121,7 @@ void registrarTurista(HashMap* mapa, HashMap* mapaPais){
 
   Pair* auxiliar = searchMap(mapa, nuevo->nombre);
   if (auxiliar != NULL) {
-    printf("Este turista ya ha sido registrado.\n");
+    printf("Este turista ya ha sido se");
     free(nuevo); 
     return;
   }
@@ -297,17 +297,26 @@ void importarCSV_puntos(HashMap* mapaPuntos,HashMap* mapaTipo) {
   fclose(fp);
 }
 
-void exportarCSV_puntos(HashMap* mapaPuntos) {
-  FILE *fp = fopen ("puntos_interes", "w");
-  Pair* mapaux = firstMap(mapaPuntos);
-  Punto* punto = mapaux->value;
-  while (mapaux != NULL) { 
-    fprintf(fp, "%s,%s,%s,%s,%s\n", punto->nombre, punto->tipo,punto->direccion, punto->horario, punto->descripcion);
-    mapaux = nextMap(mapaPuntos);
-    punto = mapaux->value;
-  }
-  fclose(fp);
+void exportarCSV_puntos(HashMap* mapa) {
+    FILE* archivo = fopen("puntos_interes.csv", "w");
+    if (archivo == NULL) {
+        printf("Error al abrir el archivo.\n");
+        return;
+    }
+
+    fprintf(archivo, "Nombre,Tipo,Direccion,Horario,Descripcion\n");
+
+    Pair* par = firstMap(mapa);
+    while (par != NULL) {
+        Punto* punto = (Punto*)par->value;
+        fprintf(archivo, "%s,%s,%s,%s,%s\n", punto->nombre, punto->tipo, punto->direccion, punto->horario, punto->descripcion);
+        par = nextMap(mapa);
+    }
+
+    fclose(archivo);
+    printf("Datos exportados con éxito a puntos_interes.csv\n");
 }
+
 
 void importarCSV_turistas(HashMap* mapaTuristas, HashMap* mapaPais) {
   FILE *fp = fopen ("turistas.csv", "r");
@@ -336,20 +345,26 @@ void importarCSV_turistas(HashMap* mapaTuristas, HashMap* mapaPais) {
   fclose(fp);
 }
 
-void exportarCSV_turistas(HashMap* mapaTuristas) {
-  FILE *fp = fopen ("turistas.csv", "w");
+void exportarCSV_turistas(HashMap* mapa) {
+    FILE* archivo = fopen("turistas.csv", "w");
+    if (archivo == NULL) {
+        printf("Error al abrir el archivo.\n");
+        return;
+    }
 
-  fprintf(fp, "Pasaporte,Nombre,Pais\n");
+    fprintf(archivo, "Nombre,Pasaporte,País,Lugares Favoritos\n");
 
-  Turista *turista = (Turista *)firstMap(mapaTuristas);
-    
-  while (turista != NULL) { 
-    fprintf(fp, "%s,%s,%s\n", turista->pasaporte, turista->nombre,turista->pais);
+    Pair* par = firstMap(mapa);
+    while (par != NULL) {
+        Turista* turista = (Turista*)par->value;
+        fprintf(archivo, "%s,%s,%s,%s\n", turista->nombre, turista->pasaporte, turista->pais, turista->favorito);
+        par = nextMap(mapa);
+    }
 
-    turista = (Turista *)nextMap(mapaTuristas);
-  }
-  fclose(fp);
+    fclose(archivo);
+    printf("Datos exportados con éxito a turistas.csv\n");
 }
+
 
 int main(void) {
   
