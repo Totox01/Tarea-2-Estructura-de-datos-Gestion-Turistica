@@ -9,11 +9,11 @@ Esta aplicacion permite la gestion de puntos de interes turistico y de turistas 
 
 1. Clonar el repositorio:
 
-   *git clone*
+   *git clone https://github.com/Totox01/Tarea-2-Estructura-de-datos-Gestion-Turistica*
    
 2. Navegar hasta el directorio del protecto:
 
-   *cd*
+   *cd Tarea-2-Estructura-de-datos-Gestion-Turistica*
    
 3. Compilar el codigo:
 
