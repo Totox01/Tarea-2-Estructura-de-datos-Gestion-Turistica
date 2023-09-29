@@ -95,11 +95,14 @@ void eliminarPunto(HashMap* mapa, HashMap* mapaPorTipo){
   Pair* aux = searchMap(mapaPorTipo, tipo);
   if (aux != NULL){
     List* lista = aux->value;
-    Punto* current = lista->head->data;
-    while (current != NULL && current->nombre != nombre){
+    Node* current = lista->head;
+    Punto* auxiliar = current->data;
+    while (current != NULL && auxiliar->nombre != nombre){
       current = nextList(lista);
+      auxiliar = current->data;
     }
     popCurrent(lista);
+    free(current);
     printf("\n***El punto ha sido eliminado correctamente***\n\n");
   } else {
     printf("\nNo se encontró ningún punto que coincidencia con su busqueda\n\n");
