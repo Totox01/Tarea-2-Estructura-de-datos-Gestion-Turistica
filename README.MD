@@ -43,14 +43,16 @@ Esta aplicacion permite la gestion de puntos de interes turistico y de turistas 
 ###**PROBLEMAS CONOCIDOS CON LAS FUNCIONALIDADES**
 
 
-*La aplicacion no verifica el tamaño de los strings ingresados por lo que ingresar strings de mayor largo que los indicados en la estructura lleva a errores de ejecucion.
+* La aplicacion no verifica el tamaño de los strings ingresados por lo que ingresar strings de mayor largo que los indicados en la estructura lleva a errores de ejecucion.
+* La funcion eliminarPunto causa errores con la lista de tipos de puntos.
 
 
-###**FUNCIONES A MEJORAR**
+###**FUNCIONALIDADES A MEJORAR**
 
 
-* Automatizar el proceso de identificacion de los archivos en las funciones Importar y Exportar
-* Verificar correctamente el tamaño de los strings ingresados en las funciones de registro para que no superen los 100 caracteres
+* Automatizar el proceso de identificacion de los archivos en las funciones Importar y Exportar.
+* Verificar correctamente el tamaño de los strings ingresados en las funciones de registro para que no superen los 100 caracteres.
+* Modificar la funcion agregarFavorito para que acepte una lista de puntos en vez de solo aceptar un punto.
 
 
 ##**CONTRIBUCIONES**

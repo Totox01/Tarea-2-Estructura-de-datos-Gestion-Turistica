@@ -40,7 +40,7 @@ void insertMap(HashMap * map, char * key, void * value) {
   }
   Pair* nuevoPar = createPair(key, value);
   if (map->buckets[valorHash] != NULL) {
-    free(map->buckets[valorHash]); // Libera el espacio ocupado por el par anterior
+    free(map->buckets[valorHash]);
   }
   map->buckets[valorHash] = nuevoPar;
   map->size++;

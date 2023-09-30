@@ -29,8 +29,9 @@ void registrarPunto(HashMap* mapa, HashMap* mapaTipo){
   printf("\nIngrese el nombre del punto de interes: ");
   scanf(" %[^\n]", nuevo->nombre);
 
-  Pair* auxiliar = searchMap(mapa, nuevo->nombre);
-  if (auxiliar != NULL) {
+  //Verificacion si el punto ya se encuentra registrado
+  Pair* aux = searchMap(mapa, nuevo->nombre);
+  if (aux != NULL) {
     printf("El nombre del punto ya está ocupado. Intente con otro nombre.\n");
     free(nuevo); 
     return;
@@ -49,9 +50,11 @@ void registrarPunto(HashMap* mapa, HashMap* mapaTipo){
   scanf(" %[^\n]", nuevo->descripcion);
 
   printf("\n***El punto ha sido registrado correctamente***\n\n");
+  //Insercion del punto al mapa de puntos
   insertMap(mapa, nuevo->nombre, nuevo);
 
-  Pair* aux = searchMap(mapaTipo, nuevo->tipo);
+  //Verificacion si el tipo de punto ya existe si no existe se crea una lista nueva y se inserta a esta, sino se inserta a la lista ya existente que se encuentra en el mapa
+  aux = searchMap(mapaTipo, nuevo->tipo);
   if (aux == NULL){
     List* nuevoTipo = createList();
     pushFront(nuevoTipo, nuevo);
@@ -85,13 +88,16 @@ void mostrarPunto(HashMap* mapa){
 
 void eliminarPunto(HashMap* mapa, HashMap* mapaPorTipo){
   char nombre[51];
-  char tipo[21];
+  char tipo[51];
   printf("\nIngrese el nombre del punto: ");
   scanf(" %[^\n]", nombre);
   printf("Ingrese el tipo de punto: ");
   scanf(" %[^\n]", tipo);
 
+  //Eliminacion del punto en el mapa de puntos
   eraseMap(mapa,nombre);
+
+  //Busqueda en la lista que se encuentra en el mapa para asi eliminar el punto del mapa por tipos
   Pair* aux = searchMap(mapaPorTipo, tipo);
   if (aux != NULL){
     List* lista = aux->value;
@@ -101,8 +107,8 @@ void eliminarPunto(HashMap* mapa, HashMap* mapaPorTipo){
       current = nextList(lista);
       auxiliar = current->data;
     }
-    popCurrent(lista);
     free(current);
+    popCurrent(lista);
     printf("\n***El punto ha sido eliminado correctamente***\n\n");
   } else {
     printf("\nNo se encontró ningún punto que coincidencia con su busqueda\n\n");
@@ -121,7 +127,7 @@ void registrarTurista(HashMap* mapa, HashMap* mapaPais){
 
   Pair* auxiliar = searchMap(mapa, nuevo->nombre);
   if (auxiliar != NULL) {
-    printf("Este turista ya ha sido se");
+    printf("Este turista ya se encuentra registrado");
     free(nuevo); 
     return;
   }
@@ -132,7 +138,8 @@ void registrarTurista(HashMap* mapa, HashMap* mapaPais){
   strcpy(nuevo->favorito, "No tiene punto favorito");
 
   insertMap(mapa, nuevo->pasaporte, nuevo);
-  
+
+  //Verificacion si el turista ya existe si no existe se crea una lista nueva y se inserta a esta, sino se inserta a la lista ya existente que se encuentra en el mapa
   Pair* aux = searchMap(mapaPais, nuevo->pais);
   if (aux == NULL) {
     List* listaPorPais = createList();
@@ -146,7 +153,7 @@ void registrarTurista(HashMap* mapa, HashMap* mapaPais){
 }
 
 void agregarFavorito(HashMap* mapaTuristas, HashMap* mapaPuntos){ 
-  char pasaporte[21];
+  char pasaporte[51];
   printf("\nIngrese el pasaporte del turista: ");
   scanf(" %[^\n]", pasaporte);
 
@@ -180,7 +187,7 @@ void agregarFavorito(HashMap* mapaTuristas, HashMap* mapaPuntos){
 }
 
 void mostrarTuristasPais(HashMap* mapaPais){
-  char pais[21];
+  char pais[51];
   printf("\nIngrese el nombre del país: ");
   scanf(" %[^\n]", pais);
 
@@ -204,7 +211,7 @@ void mostrarTuristasPais(HashMap* mapaPais){
 }
 
 void mostrarPuntosTipo(HashMap* mapaTipo){
-  char tipo[21];
+  char tipo[51];
   printf("\nIngrese el nombre del tipo: ");
   scanf(" %[^\n]", tipo);
 
